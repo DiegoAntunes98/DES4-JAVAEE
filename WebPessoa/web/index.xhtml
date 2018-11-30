@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Web Pessoa</title>
+    </h:head>
+    <h:body>
+       
+        <p:messages globalOnly="true"/>
+        
+        <h:form>
+            <h:panelGrid columns="3">
+                <p:outputLabel value="Nome: " for="nome"/>
+                <p:inputText id="nome" required="true" value="#{pessoaMB.pessoa.nome}"/>
+                <p:message for="nome"/>
+                
+                <p:outputLabel value="Rua: " for="rua"/>
+                <p:inputText id="rua" required="true" value="#{pessoaMB.novoendereco.rua}"/>
+                
+                <p:outputLabel value="CEP: " for="cep"/>
+                <p:inputText id="cep" required="true" value="#{pessoaMB.novoendereco.cep}"/>
+                             
+                
+                <h:inputHidden value="#{pessoaMB.pessoa.id}"/>
+                <p:commandButton action="#{pessoaMB.salvar}" update=":formulario" value="Salvar" />
+                
+            </h:panelGrid>
+        </h:form>
+        
+        
+        
+        <h:form id="formulario">
+            <p:dataTable value="#{pessoaMB.pessoas}" var="p">
+                <p:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{p.id}
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Nome</f:facet>
+                    #{p.nome}
+                </p:column>
+                
+                <p:column>
+                    <f:facet name="header">Rua</f:facet>
+              
+                </p:column>
+                <p:column>
+                    <p:commandButton value="Editar" action="#{pessoaMB.editar(p)}" update="@all"/>
+                    
+                    <p:commandButton update="@all" action="#{pessoaMB.excluir(p)}" value="Excluir"/>
+                    
+                </p:column>
+                
+            </p:dataTable>
+        </h:form>
+        
+    </h:body>
+</html>
+
